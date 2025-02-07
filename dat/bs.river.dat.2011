@@ -1,0 +1,45 @@
+i, j, %, load tonnes/year, region, river  
+
+  7 158   8.00  0.33  bothnian bay      lulealven  S
+ 37 132   8.00 0.33   bothnian sea      indalsaven   S
+ 33 136   8.00  0.33  bothnian sea      angermanalv  S
+  4 170   8.00  0.33  bothnian bay      tornealv  S
+  4 161   8.00  0.33  bothnian bay      kalixalv  S
+ 75 127  15.00 0.33   baltic proper     vattern  Se
+ 88 126  15.00 0.33   baltic proper     eman  Se
+100 115  15.00 0.33   baltic proper     smaland  Se
+ 84  97   5.00 0.33    kattegat          gota alv  Se
+ 88  99   5.00 0.33    kattegat          viskan  Se
+ 96 104   5.00 0.33    kattegat          lagan   Se
+
+  4 170   6.00 0.25 bothnian bay      tornealv   Fi
+ 27 160   6.00 0.25 bothnian bay                 FI       
+ 20 167   3.00 0.25 bothnian bay                 FI
+ 21 166   3.00 0.25 bothnian bay                 FI
+ 16 171   6.00 0.25 bothnian bay                 FI
+ 12 173   6.00 0.25 bothnian bay                 FI
+  4 173  10.00 0.25 bothnian bay      kemijoki   Fi 
+ 54 130  10.00 0.25 bothnian sea                 Fi
+ 50 130  10.00 0.25 bothnian sea                 Fi
+ 44 130  10.00 0.25 bothnian sea                 Fi
+ 41 131  10.00 0.25 bothnian sea                 Fi
+ 48 155  10.00 0.25 bothnian sea      kokemaen   Fi
+ 56 190  10.00 0.25 gulf of finland   kymioki    Fi
+
+ 61 206  70.00 0.06 gulf of finland   neva      Ru
+ 66 194  30.00 0.06 gulf of finland   luga      Ru
+
+ 89 172  50.00 0.02 gulf of riga       dangava   lat
+ 92 153  50.00 0.02 baltic proper      venta  lat
+
+ 79 173  50.00  0.17 gulf of riga      parnu   Estonia
+ 66 192  50.00  0.17 gulf of finland   narva   Es 
+
+ 91 169  50.00 0.02  gulf of riga      lielupe   lit
+106 153  50.00 0.02  baltic proper     neman   lit
+
+117 141  20.00 0.20 baltic proper     vistula Po
+121 112  80.00 0.20 baltic proper     odra  Po
+
+121  94  80.00 0.04 kattegat          meckl. bucht  De
+116  86  20.00 0.04 canal             meckl. bucht  De (found in ns.river database)
