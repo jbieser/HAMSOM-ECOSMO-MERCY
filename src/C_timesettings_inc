@@ -1,0 +1,71 @@
+c-----------------------------------------------------------------------
+c      start time settings, user defined
+c-----------------------------------------------------------------------
+
+       itaga =    1
+       mona  =    1
+       itage =   31
+       mone  =   12
+       iyears_start =    89 ! 89=1989  !04=2004
+       iyearmod=iyears_start
+
+	IF( IYEARMOD .LT. 40 ) THEN
+       ijahr = 2000 + iyearmod
+	ELSE
+       ijahr = 1900 + iyearmod
+	END IF
+
+	IF( IYEARMOD .LT. 40 ) THEN
+       mjar   = ijahr-2000
+	ELSE
+       mjar   = ijahr-1900
+	END IF
+
+
+       write(6,3406)itaga,mona,mjar
+       write(6,3407)itage,mone,mjar
+ 3406  format(3x,'start :',3i3)
+ 3407  format(3x,'end   :',3i3)
+       print*,' '
+!c-----------------------------------------------------------------------
+!c      timestep organisation, user defined
+!c      iviert = dates per day
+!c      iper   = timesteps per date
+!c      nsteps = timesteps per day
+!c      deltat= timestep in seconds
+!c-----------------------------------------------------------------------
+
+       iviert = 2
+       iper   = 36 ! 72 = 10min ! 36 = 20min
+       nsteps = iviert * iper
+       rsteps = 1./(real(nsteps))
+       deltat = 24.*3600./nsteps
+       print *,'deltat = ', deltat
+
+c-----------------------------------------------------------------------
+c      set days per month, number of skipped days to start and time
+c-----------------------------------------------------------------------
+
+       data (itagan(k),k=3,12) /31,30,31,30,31,31,30,31,30,31/
+       itagan(1) = 31
+       itagan(2) = 28
+
+       iskipd = 0
+       if(itaga.eq.1.and.mona.eq.1)then
+        iskipd = 0
+       else
+        do lstmon=1,mona
+         if(lstmon.eq.mona)then
+            itagvo = itaga-1
+         else
+            itagvo = itagan(lstmon)
+         endif
+         iskipd = iskipd+itagvo
+        enddo
+       endif
+
+       time = 0.0
+       do i=1,iskipd
+       time = time+86400.0
+       enddo
+

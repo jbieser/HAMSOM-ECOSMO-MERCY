@@ -1,0 +1,16 @@
+      real bio3(m,n,ilo),nut3(m,n,ilo),dom3(m,n,ilo),
+     &  pom3(m,n,ilo),oxy3(m,n,ilo),cdi3(m,n,ilo),cpa3(m,n,ilo),
+     &  bio1(ilo), nut1(ilo), dom1(ilo), pom1(ilo), oxy1(ilo),
+     &  cdi1(ilo), cpa1(ilo),dbio1(ilo),dnut1(ilo),ddom1(ilo),
+     &  dpom1(ilo),doxy1(ilo),dcdi1(ilo),dcpa1(ilo),
+     &  tem3(m,n,ilo),tem1(ilo), depth(ilo),dummy1(ndrei)
+
+      integer izmax(m,n)
+
+!c! in case oxydep is called
+ ! for oxygen flux calculations (GOTM/ROLM)
+      REAL :: pvel= 5.       ! wind speed                  [m/s]
+      REAL :: o2a0  = 31.25    !oxygen saturation parameter  [uM]
+      REAL :: o2a1  = 14.603   !oxygen saturation parameter  [ -]
+      REAL :: o2a2  = 0.4025   !oxygen saturation parameter  [1/degC]
+

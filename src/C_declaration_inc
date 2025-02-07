@@ -1,0 +1,125 @@
+       integer, parameter :: nx=n-1,ny=m-1,ilop1=ilo+1,khor1=khor+1
+!c      laenge von aux    : ngro = (max(m*(ilo*20+10),(kasor*8)))
+!c      laenge von auxint : nlar = m*(ilo*6+3) 
+!c       parameter (ngro=kasor*8) 
+!c       integer, parameter :: ngro=m*(ilo*40+10)	!OLD VALUE
+       integer, parameter :: ngro=m*(ilo*20+10) ! north b	!NEW VALUE
+       integer, parameter :: nlar=m*(ilo*20+3)
+
+       integer iindex(m,n),izet(m,n),iizet(m,n),jjc(m,n)
+       integer id3sur(khor),ilwrnd(lrp),irand(lrp),jrand(lrp)
+       integer indm(nanz),indn(nanz),ind2d(nanz),ind3d(nanz)
+       integer ieintr(nanz,12)
+       integer nord,sued,ost,west
+       integer*2 isor,ksor
+       integer itagan(12)
+       integer idudo2(m,n) 
+       integer vardim2(2),vardim3(3)
+       integer i,j,k,itaga,itage,mjar,mona,mone
+       integer iyears_start,iyearmod,ijahr
+
+       dimension dudo3(m,n,ilo),dudo2(m,n) 
+       dimension zalt(khor) 
+    
+        common /daily_phy/ zmit(khor),
+     &  umit(ndrei),vmit(ndrei),wcmit(ndrei),
+     &  acmit(ndrei),szmit(ndrei),
+     &  tcmit(ndrei),scmit(ndrei),
+     &  frimit(m,n),hismit(m,n),hisrmit(m,n),
+     &  tismit(m,n),uimit(m,n),vimit(m,n),
+     &  qois(m,n),qiis(m,n)
+
+        double precision wsurf(khor)
+
+       dimension szahl(ndrei)
+       dimension fricemm(m,n),hismm(m,n)
+       dimension evapmit(khor),precmit(khor)
+       dimension einstr(m,n),einstrice(m,n),dumm(m,n)
+       dimension flag(ndrei),diat(ndrei),xlight(ndrei) 
+       dimension pat(m,n),txx(m,n),tyy(m,n)
+       dimension wgesch(m,n),evap(khor)
+       dimension q10(khor),q10a(khor),tl10(khor),tl10a(khor)
+       dimension cddu(khor),precip(khor),precipn(m,n)
+       dimension qoi(m,n),qii(m,n)
+
+       real ht(m,n),dzbod(m,n),hisr(m,n)
+       real dz(ilo),pav(ilo),pah(ilo)
+       real zic(khor)
+       real dx(m,n),dy(m,n)
+       integer ltief(m,n)
+
+       real sinput(m,n),sinmit(m,n)
+
+       integer ircode,id1, id2, id3   !EYA
+       integer idv1,idv2,idv3,idv4,idv5,idv6,idv7,idv8,idv9,idv10,idv11,
+     &  idv12,
+     & idv13,idv14, idv14a, idv15,idv16,idv17,idv18,idv19,idv20,
+     & idv21,idv22
+      
+       common uc(ndrei),vc(ndrei),stc(ndrei),avc(ndrei),z(m,n)
+       common zac(khor),wobc(khor),stuvc(khor)
+       common fricu(khor),cxc(khor) 
+       common cyc(khor),pac(khor),txc(khor),tyc(khor)
+       common stpc(ndrei),sac(ndrei),tec(ndrei)
+       common pres(ilo),wc(ndrei),fricv(khor)
+
+c grid array and compression information, ldep - thickness of the bottom layer
+       common /ind/ iwet(khor1),ldep(khor),lazc(khor),
+     *    indend(n),isornr(n),isorsr(n),islab(n)
+       common /intit/ itel(lrp),jc(m,3),ikk(kasor),isor(kasor),
+     * ksor(kasor),nofrez,lone,itende,nfreez
+
+       common /gitter/ dt,r,g,dl,dlr,dlrh,dln(m),rdln(m),rad,dth,
+     * dlvo(m),dlvu(m),gh,rdt,dt2,r4,dtrdln(m),dtdlr
+
+       common /gitter2/ fianf,yambdanf,dphi,dlambda,rearth
+
+       common /num/ dc(ilo),av(ilo),ad(ilo),dh(ilo),pd(ilo),
+     * prd(ilo),pr2d(ilo),r2d(ilo),tkw(ilo),tau(ilo),
+     * dd(ilo),qa(ilop1),qbet(ilop1),qn(ilop1),rd(ilop1)
+
+       common /ice/ cwa,ccw,tci,sice,rois,cp,tf,epsis,roil,dtroil,
+     * his(m,n),frice(m,n),tis(m,n),tair(m,n),qoc(m,n),
+     * icloud,solcon,frsw,frsi,time,xlat(m),
+     * ui(m,n),vi(m,n),us(m,n),vs(m,n)
+
+      common /icevelo/ uice(nx,ny,3),vice(nx,ny,3),
+     * uicec(nx,ny),vicec(nx,ny),
+     * uerr(nx,ny),verr(nx,ny),gwaty(nx,ny),
+     * gairx(nx,ny),gairy(nx,ny),gwatx(nx,ny),
+     * drags(nx,ny),draga(nx,ny),amass(nx,ny),
+     * eta(n,m),zeta(n,m),hisir(n,m,3),
+     * hisi(n,m,3),fricei(n,m,3),
+     * forcex(nx,ny),forcey(nx,ny)
+
+      common /vecind/ indwet(khor),lb(n),le(n),indver(ndrei),
+     * jwet(khor),llw(ndrei),Dvoltj(m,ilo,n),
+     * indi(ndrei),irbsor(kasor,2,2),nrbsor(2,2)
+
+      common /vec44/ init,ljumm(khor),vol0,dtdx(m),dvo(m),dvu(m),
+     1 lww(-3:3,-3:3,ndrei),llay(0:khor,ilo)
+
+      real*8 zinc(m,n)
+ 
+      dimension Tc_flux_r(khor,nbio),Tc_flux_e(khor,nbio), !river and P-E fulxes, not used currently
+     & Tc_flux_all(khor,nbio)
+
+      logical loxstatinput,loxstatoutput,nc_out,readbio
+
+       common/T_4d/ Tc(ndrei,nchem),Tc_mit(ndrei,nchem) !Pollutants to advect, Tc_mit daily mean of Tc, Tf for fish Hg
+       common/Tin_4d/Tcin(ndrei,3:ninbio),Tflu(ndrei,nflu),Tfish(ndrei,2) !Tcin 3-ninbio, biological parameter ECOSMO model output
+ 
+
+       dimension e(ilo),taa(ilo),tac(ilo),tab(ilo),sad(ilo),tad(ilo)
+
+       common /aux/ gross(ngro)
+
+       dimension avd(ndrei,nbio)
+       integer jc5(m,n,ilo)
+        common /auxint/ large(nlar)
+
+       common /julian/ julianday
+          common / iceconc/ icemold(m,n) , delconc (m,n, nbio)
+          real concice (nbio)
+
+          include 'C_index_inc' 

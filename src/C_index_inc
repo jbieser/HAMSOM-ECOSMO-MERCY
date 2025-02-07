@@ -1,0 +1,2 @@
+        common /help/ iidrei(ilo,m,n),iland(ilo,m,n), iizwei(m,n),
+     *    ibotlay(m,n)

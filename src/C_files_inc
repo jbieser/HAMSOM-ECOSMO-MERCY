@@ -1,0 +1,57 @@
+       character*12 rdummy
+
+!c-------------------------------------------
+
+       character*9  setupcep
+
+       character fbackup*9,control*10,ppp*3
+       character( 265 ) topofile
+       character( 265 ) biofile
+       character( 265 ) flufile
+       character( 265 ) phyfile
+       character( 265 ) gridinf
+       character( 265 ) CHEMOUT
+       character*12 outfile
+       character inifilek*12,pou*3  
+
+!c!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!c
+!c      change user-path & filenames  here  ! ! ! !
+!c
+!c       ADOPT to your needs   !!!!!!!
+!c!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+      character pathnc_in*38,pathnc_out*41
+c----------------------------------------------1234567890123456789012345678901234567
+      character*(*),parameter :: home='/home/g/g260102/MECOSMO/model/v3.1/'
+      character*(*),parameter :: homedata='/storage/bieser/schrum/data/'
+      character*(*),parameter :: pathout='/storage/bieser/schrum/data/' //
+     & 					'ECOSMO_a34/mercury/'
+      character*(*),parameter :: pathbioin='/storage/bieser/schrum/data/'//
+     &					'ECOSMO_a34/biomass/'
+
+
+!      character*(*),parameter :: home='/local/home/schrumm/NSBS_mercury'
+!      character*(*),parameter :: homedata='/home/g/g260102/MECOSMO/model/v3.1/'
+!      character*(*),parameter :: pathtop = 'NEWrun/geo_input/'
+!      character*(*),parameter :: pathout= homedata//'/mercury/'
+!      character*(*),parameter :: pathphyin=homedata//'/physics/'
+!      character*(*),parameter :: pathbioin=homedata//'/biomass/'
+      pathnc_in =home//'/2004/'
+      pathnc_out=pathout//'2004res/'
+
+!c-----------------------------------------------------------------------
+!c      set file names
+!c-----------------------------------------------------------------------
+       ppp       = 'a34'     ! input physics&bio run character
+       pou       = 'm01'     ! output character mercury daily means
+   
+       outfile='pou000000.nc' ! output, daily means initial filename & run character
+       fbackup  = 'lo1backup'
+!       gridinf  = 'pppgrdinfo'
+!       control  = 'pppcontrol'
+!       infile   = 'ppp0000'        !initial input filename
+       inifilek = 're1040000.nc'   !inifiles
+       topofile = 'topo_nsm_mod'   !input bathymetry
+

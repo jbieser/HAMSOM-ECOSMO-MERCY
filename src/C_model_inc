@@ -1,0 +1,24 @@
+       integer,parameter :: m=177,n=207,ilo=20
+       integer,parameter :: khor=8216,ndrei=82108,kasor=8106
+       integer,parameter :: lrp=55,lvrp=840
+!       integer,parameter :: nsed=2,nbio=9+2+2,ninbio=18    !OLD VALUES
+!	should probably be equal to NHGTRANS + NON_NHGTRANS
+       integer,parameter :: nchem = 35+4  ! 23 for bioacc  !number of chemicals in array Tc
+       integer,parameter :: nhgstrom = 29 ! do not transport macrobenthos but terrestrial DOC & POC
+!	should probably be equal to NHGTRANS in cout.f
+       integer,parameter :: ihgt  = 27	! sum total Hg   n = 1     , ibiohg-1
+       integer,parameter :: imehg = 8   ! sum total MeHg n = imehg , ibiohg-1
+       integer,parameter :: ibiohg = 12 ! sum biota MeHg n = ibiohg, ihgt
+       integer,parameter :: nsed=4	!number of sediment compartements, see C bio.f
+       integer,parameter :: nbiox=16	!biological parameters, see C bio.f 16+4sediment
+       integer,parameter :: nbio=nbiox	!biological parameters, see C bio.f
+       integer,parameter :: nflu=37	!number of flux variables
+       integer,parameter :: nxadd=0	!in case we also have carbon species
+       integer,parameter :: ninbio=nbio+nsed+nxadd
+       integer,parameter :: ips=3,ipl=4,ibg=15,izs=5,izl=6,idet=7,inh4=8
+       integer,parameter :: idom=9,ino3=10,ipo4=11,isio=12,io2=13,iop=14,ifi1=16
+       integer,parameter :: ised1=1,ised2=2,ised3=3,imb1=4
+       integer,parameter :: idic=nbiox+1,ialk=nbiox+2
+       integer,parameter :: ipco=nbiox+3,iph=nbiox+4,iatc=nbiox+5	!field:	bio
+!       integer,parameter :: ngro=m*(ilo*20+10) ! north b	IN C_declarations_inc
+       integer,parameter :: iranz=2

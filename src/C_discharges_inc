@@ -1,0 +1,72 @@
+cccccc ######   only  North Sea  so far #########  CS   !!!update needed
+        goto 1233
+        open(15,file='Hg_river.dat')
+        read (15,*) rdummy
+        iyr=1
+          do ir=1,nr
+      read (15,*) nvassdr(ir),ix_riv(ir),iy_riv(ir),
+     & dis_yr(ir,iyr),(dis_mn(ir,imonth,iyr),imonth=1,12)
+
+        if (dis_yr(ir,iyr).lt.0.) then
+            dis_yr(ir,iyr)=0.
+            do imonth=1,12
+                dis_mn(ir,imonth,iyr)=0.
+            enddo
+        endif
+         do imonth=1,12
+c--- const river flux
+            dis_mn(ir,imonth,iyr)=134.*400./12./real(nr)
+         enddo
+!       write(*,*) 'ir',ir,nvassdr(ir),ix_riv(ir),iy_riv(ir),
+!     & dis_yr(ir,iyr) ,(dis_mn(ir,imonth,iyr),imonth=1,12)
+          enddo
+        close(15)
+!        pause 2144
+c-----------------------------------------------------------------------
+      print*,'  Tc() rivers discharge data read '
+c-----------------------------------------------------------------------
+c    platform loads/discharge
+c-----------------------------------------------------------------------
+ccccccccccccc##### !!!update needed ###################
+        open(19,file='Hg_platf.dat')
+        read (19,*) rdummy
+        iyr=1
+          do ir=1,np
+      read (19,*) nv_pla(ir),ix_pla(ir),iy_pla(ir),
+     & pla_yr(ir,iyr),(pla_mn(ir,imonth,iyr),imonth=1,12)
+
+        if (pla_yr(ir,iyr).lt.0.) then
+            pla_yr(ir,iyr)=0.
+            do imonth=1,12
+                pla_mn(ir,imonth,iyr)=0.
+            enddo
+          endif
+            do imonth=1,12
+                pla_mn(ir,imonth,iyr)=161000/12./real(np)
+            enddo
+          enddo
+        close(19)
+c-----------------------------------------------------------------------
+      print*,'  Tc() platforms discharge data read '
+c-----------------------------------------------------------------------!
+c     atmospheric loads & fluxes atmflux()
+c-----------------------------------------------------------------------!
+cccccccccccc######  !!! update needed ####################
+         open(17,file='Hg_atm.dat')
+
+!      do iiiyear=4,8
+      do iiiyear=1989,2010
+        do imonth=1,12
+          do i=1,m
+            do j=1,n
+        read (17,*) iii,jjj,iyiyiy,momomo,atmflux(i,j,iiiyear,imonth,1)
+            enddo
+          enddo
+        enddo
+      enddo
+         close(17)
+c-----------------------------------------------------------------------
+      print*,'  Tc() atmopsheric flux data read '
+c-----------------------------------------------------------------------
+ 1233 continue
+

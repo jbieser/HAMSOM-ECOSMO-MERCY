@@ -1,0 +1,112 @@
+c-----------------------------------------------------------------------
+c     time level weighting, implicit scheme for turbulent diffusion
+c     vtmit from interval 0-1, (0 = explizit, 1 =fully implizit)
+c     vtmit indicates weight of time level n+1
+c-----------------------------------------------------------------------
+
+      vtmit  =0.85
+      vtmic  = 1.-vtmit
+!c-----------------------------------------------------------------------
+!c      g, vert. diffusion coefficients, epsilon
+!c-----------------------------------------------------------------------
+
+       g=9.81
+       cdeav = 0.05
+       avmax =2000.e-4 !org: 2000
+       eps = 1.e-7
+
+!c-----------------------------------------------------------------------
+!c      initialisations, defaults
+!c-----------------------------------------------------------------------
+
+       nz = n-1
+       mz = m-1
+
+       time = 0.0
+       ijulu = 0
+       ihouu = 0
+       iminu = 0
+       isecu = 0
+       imal = 0
+c-----------------------------------------------------------------------
+c       print*,'  zero initialisation'
+c-----------------------------------------------------------------------
+
+       pnull = 101.3
+       large=0;gross=0.
+
+       uc=0.;vc=0.;wc=0.;
+       umit = 0.0;vmit=0.;wcmit=0.;scmit=0.;
+       szmit = 0.0;acmit=0.;tcmit=0.;sac=0.;tec=0.;
+       avc = 0.0;stpc=0.;stc=0.;dummy=0.;
+
+       islab=0;isornr=0;isorsr=0;indend=0;
+       izet=0;jjc=0;iindex=0;
+       frice = 0.0;his=0.;ui=0.;vi=0.;tis=0.;
+       frimit=0.;hismit=0.;hisrmit=0.;tismit=0.;
+       uimit = 0.0;vimit=0.;z=0.;dumm=0.;
+       zinc = 0.0d+0
+
+       zic = 0.0;zac=0.;zmit=0.;fricu=0.;fricv=0.;wobc=0.;
+       stuvc = 0.0;pac=pnull;txc=0.;tyc=0.;cxc=0.;cyc=0.;
+       ldep = 0;lazc=0;iwet=0;id3sur=0
+
+!HgHgHgHgHgHgHgHgHgHgHgHgHgHgHgHgHgHg Ice concentrations
+       concice=300.
+!        concice(5)=300. !Hg[ng/l] ice concentration, from 10 to 820 ng/l
+!the highest values are reported near leads  (Douglas et al., 2005)
+
+          row=1.027
+          roi=1.00
+
+!HgHgHgHgHgHgHgHgHgHgHgHgHgHgHgHgHgHg
+    
+c-----------------------------------------------------------------------
+      print *,'vertical constants and exchange coefficients'
+c-----------------------------------------------------------------------
+
+      dc=dz;r2d=0.;av=pav;
+      gh       = 0.5*g
+      dd(1)   = dz(1)
+      dz1      = dz(1)
+      dh(1)   = gh*dd(1)
+      pd(1)   = dd(1)
+      prd(1)  = 1./dd(1)
+      pr2d(1) = 1.0
+c-----------------------------------------------------------------------
+c      compute reference density and pressure
+c-----------------------------------------------------------------------
+
+      dzz = 0.0
+      sal = 33.0
+      tem = 12.
+      do j=1,ilo
+        druck      = (dzz+0.5*pd(j))*0.1
+        pres(j)   = druck
+        dzz        = dz(j)
+      enddo
+
+      do l = 1,ndrei
+        sac(l) = sal
+        tec(l) = tem
+      enddo
+
+
+      do j=2,ilo
+        dd(j)   = dz(j)-dz(j-1)
+        dh(j)   = gh*dd(j)
+        pd(j)   = dd(j)
+        prd(j)  = 1./dd(j)
+        pr2d(j) = 1./(dd(j-1)+dd(j))
+      enddo
+
+      depth(1)=dz(1)/2.
+      do j=2,ilo
+        depth(j)   = dz(j-1)+dz(j)/2.
+      enddo
+
+ccccccccfluxes river and precipitation, not used currently
+
+        Tc_flux_all= 0. !Tc_flux_r+Tc_flux_e
+!*============================================================================
+ 

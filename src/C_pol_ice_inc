@@ -1,0 +1,29 @@
+!*************************************
+!---TRACERS IN THE ICE ---------------
+!!!icccccc  section needs update, new ice treatment ccccccccccc
+       goto 1254
+
+      iibio=5
+      do i=1,m
+        do j=1,n
+           lll=iindex(i,j)+1
+           ll=izet(i,j)
+          do iii=1,jjc(i,j)
+            if (tec(lll).gt. tfreez (sac(lll),0.)) then
+                hisdel=   icemold(i,j)- frice(i,j)*his(i,j)
+                if (hisdel.gt.0.) then
+                  dzw=(dz(1)+zac(ll)-frice(i,j)*his(i,j))
+      delconc(i,j,iibio)=(row*Tc(lll,iibio)*dzw+
+     & roi*concice(iibio)*hisdel)
+     & /(row*dzw-roi*hisdel)
+                    Tc(iii,iibio)=delconc(i,j,iibio)
+                end if
+             end if
+          enddo
+        enddo
+      enddo
+
+!---TRACERS IN THE ICE ---------------
+!*************************************
+ 1254  continue
+

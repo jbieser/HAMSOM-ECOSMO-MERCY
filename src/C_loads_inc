@@ -1,0 +1,12 @@
+       integer, parameter :: nr=97               ! nr=number of rivers    EYA
+       integer, parameter :: np=35               ! nr=number of platforms    EYA
+       integer, parameter :: nanz=7              ! nutrient loads and runoff structure
+
+!c------------------------------------------- EYA
+      common /rivers/ nvassdr(nr),ix_riv(nr),iy_riv(nr),
+     &                dis_yr(nr,4),dis_mn(nr,12,4)
+!c------------------------------------------- EYA
+      common /platform/ nv_pla(np),ix_pla(np),iy_pla(np),
+     &                pla_yr(np,4),pla_mn(np,12,5)
+!c------------------------------------------- EYA
+

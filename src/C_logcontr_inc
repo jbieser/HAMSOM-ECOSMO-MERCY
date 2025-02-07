@@ -1,0 +1,13 @@
+!c----------------------------------------------------------------------
+!c      set logical controls
+!c      input/output control
+!c      loxstat= .true.  ==> write statistics to std
+!c      nc_out = .true.  ==> write daily mean to netcdf file
+!c      readbio=.true.   ==> read biology from file
+!c-----------------------------------------------------------------------
+
+       loxstatoutput= .true.
+       loxstatinput = .true.
+       nc_out = .true. !.false.
+       readbio=.true.
+
